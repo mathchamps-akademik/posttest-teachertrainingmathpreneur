@@ -1,0 +1,828 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Post Test Teacher Training</title>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap');
+:root {
+  --teal: #0b7778;
+  --teal-2: #12a6a0;
+  --blue: #2d67b2;
+  --navy: #15343d;
+  --ink: #16323c;
+  --muted: #59727c;
+  --cream: #fff9eb;
+  --paper: #fffdf6;
+  --yellow: #ffd35a;
+  --orange: #ff9f29;
+  --mint: #dff6df;
+  --rose: #ffe2d7;
+  --line: rgba(18, 91, 107, .18);
+  --shadow: 0 18px 42px rgba(22, 50, 59, .14);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  font-family: "Nunito", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at 10% 9%, rgba(255,255,255,.82) 0 28px, transparent 29px),
+    radial-gradient(circle at 56% 8%, rgba(255,255,255,.78) 0 36px, transparent 37px),
+    radial-gradient(circle at 92% 14%, rgba(255,255,255,.62) 0 24px, transparent 25px),
+    linear-gradient(180deg, #c9f6fb 0%, #a9edf4 54%, #82dde8 100%);
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: auto -5vw -5vh -5vw;
+  height: 18vh;
+  background:
+    radial-gradient(80% 140% at 18% 0%, rgba(32, 181, 168, .92) 0 58%, transparent 59%),
+    radial-gradient(80% 140% at 74% 0%, rgba(45, 103, 178, .72) 0 56%, transparent 57%);
+  pointer-events: none;
+  z-index: 0;
+}
+main { position: relative; z-index: 1; }
+h1, h2, h3, p { margin-top: 0; }
+h1, h2, h3 {
+  font-family: "Baloo 2", "Nunito", system-ui, sans-serif;
+  letter-spacing: 0;
+}
+h1 {
+  margin-bottom: 12px;
+  color: var(--teal);
+  font-size: clamp(40px, 5vw, 66px);
+  line-height: .98;
+  font-weight: 800;
+}
+h2 {
+  margin-bottom: 12px;
+  color: var(--teal);
+  font-size: clamp(28px, 3vw, 42px);
+  line-height: 1.06;
+  font-weight: 800;
+}
+h3 {
+  margin-bottom: 8px;
+  color: var(--blue);
+  font-size: clamp(20px, 1.55vw, 26px);
+  line-height: 1.16;
+  font-weight: 800;
+}
+a { color: inherit; }
+.shell { padding: 34px clamp(18px, 4vw, 66px) 76px; }
+.hero {
+  min-height: calc(100vh - 68px);
+  display: grid;
+  grid-template-columns: minmax(0, 1.04fr) minmax(320px, .76fr);
+  gap: 26px;
+  align-items: center;
+}
+.card, .panel, .question, .metric {
+  background: rgba(255, 249, 235, .96);
+  border: 3px solid rgba(45, 103, 178, .16);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+.panel { padding: clamp(22px, 2.6vw, 34px); }
+.card { padding: 22px; }
+.lead {
+  max-width: 790px;
+  font-size: clamp(18px, 1.45vw, 23px);
+  line-height: 1.42;
+  font-weight: 600;
+}
+.text {
+  color: var(--muted);
+  font-size: clamp(16px, 1.05vw, 19px);
+  line-height: 1.48;
+  font-weight: 500;
+}
+.eyebrow {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  margin: 0 0 14px;
+  padding: 8px 13px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .74);
+  color: var(--teal);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: .01em;
+  text-transform: uppercase;
+}
+.tag {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  margin: 0 8px 10px 0;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: var(--yellow);
+  color: #674700;
+  font-size: 14px;
+  font-weight: 800;
+}
+.tag.blue { background: #d6e8ff; color: #164c86; }
+.tag.green { background: var(--mint); color: #246a2a; }
+.tag.orange { background: #ffe3b0; color: #744300; }
+.steps {
+  display: grid;
+  gap: 11px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.steps li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 17px;
+  line-height: 1.34;
+  font-weight: 600;
+}
+.steps span {
+  flex: 0 0 30px;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--orange);
+  color: white;
+  font-weight: 800;
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 18px;
+}
+.field.full { grid-column: 1 / -1; }
+.field label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--teal);
+  font-size: 15px;
+  font-weight: 800;
+}
+.field input, .field select {
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 12px;
+  border: 2px solid rgba(11, 119, 120, .26);
+  border-radius: 9px;
+  background: white;
+  color: var(--ink);
+  font: 700 16px "Nunito", system-ui, sans-serif;
+  outline: none;
+}
+.field input:focus, .field select:focus { border-color: var(--teal); box-shadow: 0 0 0 4px rgba(18, 166, 160, .14); }
+.hint {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.32;
+  font-weight: 600;
+}
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-top: 18px;
+}
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 11px 16px;
+  border: 0;
+  border-radius: 9px;
+  background: linear-gradient(180deg, #3f7fc2, #245f9f);
+  color: white;
+  font: 800 16px "Nunito", system-ui, sans-serif;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 7px 0 rgba(36, 95, 159, .18);
+}
+.button.secondary { background: linear-gradient(180deg, #26b6aa, #158b89); box-shadow: 0 7px 0 rgba(21, 139, 137, .18); }
+.button.light { background: #fff; color: var(--teal); border: 2px solid rgba(11,119,120,.28); box-shadow: none; }
+.button.warn { background: linear-gradient(180deg, #ffb743, #f29420); color: #3e2900; box-shadow: 0 7px 0 rgba(242,148,32,.18); }
+.button:disabled { opacity: .58; cursor: not-allowed; }
+.status {
+  display: none;
+  margin-top: 14px;
+  padding: 11px 12px;
+  border-radius: 9px;
+  font-size: 15px;
+  line-height: 1.35;
+  font-weight: 700;
+}
+.status.show { display: block; }
+.status.warn { background: #fff1b8; color: #725000; }
+.status.ok { background: #dcf8de; color: #17641d; }
+.status.err { background: #ffe0dc; color: #91291d; }
+.hidden { display: none !important; }
+.quiz-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.pill {
+  display: inline-flex;
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: #e1f6ff;
+  color: var(--blue);
+  font-size: 14px;
+  font-weight: 800;
+}
+.question {
+  margin: 16px 0;
+  padding: 20px;
+}
+.question h3 {
+  color: var(--teal);
+  font-size: clamp(20px, 1.4vw, 24px);
+  line-height: 1.22;
+}
+.option {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin: 10px 0;
+  padding: 12px 14px;
+  border: 2px solid rgba(45, 103, 178, .14);
+  border-radius: 10px;
+  background: rgba(255,255,255,.8);
+  font-size: clamp(16px, 1vw, 18px);
+  line-height: 1.36;
+  font-weight: 500;
+  cursor: pointer;
+}
+.option:hover { border-color: rgba(11,119,120,.34); background: #fff; }
+.option input { flex: 0 0 auto; margin-top: 4px; transform: scale(1.08); }
+.option strong { color: var(--blue); }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.section { padding: 26px 0 0; }
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin: 18px 0;
+}
+.metric { padding: 18px; text-align: center; }
+.metric strong {
+  display: block;
+  color: var(--teal);
+  font-family: "Baloo 2", "Nunito", system-ui, sans-serif;
+  font-size: 42px;
+  line-height: 1;
+  font-weight: 800;
+}
+.metric span { color: var(--blue); font-weight: 800; }
+.filters {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(160px, 1fr));
+  gap: 12px;
+}
+.table-wrap {
+  overflow-x: auto;
+  margin-top: 16px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+table {
+  width: 100%;
+  min-width: 940px;
+  border-collapse: collapse;
+  background: rgba(255, 249, 235, .98);
+}
+th, td {
+  padding: 11px 12px;
+  border: 2px solid rgba(11,119,120,.14);
+  text-align: left;
+  vertical-align: top;
+  font-size: 14px;
+  line-height: 1.3;
+  font-weight: 500;
+}
+th { background: var(--blue); color: white; font-weight: 800; }
+td strong { color: var(--teal); }
+.answer-block { margin-top: 16px; }
+.answer-block ol { margin: 0; padding-left: 24px; }
+.answer-block li {
+  margin: 9px 0;
+  font-size: 16px;
+  line-height: 1.36;
+  font-weight: 500;
+}
+.answer-key {
+  display: inline-flex;
+  min-width: 32px;
+  justify-content: center;
+  margin-right: 8px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--yellow);
+  color: #684400;
+  font-weight: 800;
+}
+.note {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #14343c;
+  color: white;
+}
+.note strong { color: var(--yellow); }
+@media (max-width: 980px) {
+  .hero, .form-grid, .grid, .metrics, .filters { grid-template-columns: 1fr; }
+  .hero { min-height: auto; }
+  .field.full { grid-column: auto; }
+  h1 { font-size: clamp(38px, 10vw, 56px); }
+}
+</style>
+</head>
+<body>
+<main class="shell">
+  <form id="testForm" novalidate>
+    <section class="hero" id="introCard">
+      <div>
+        <p class="eyebrow">Holiday Program Mathpreneur F&B</p>
+        <span class="tag blue">10 soal pilihan ganda</span>
+        <span class="tag">Post Test</span>
+        <h1>Post Test Teacher Training</h1>
+        <p class="lead">Cek kesiapan pengajar setelah mengikuti sesi training utama.</p>
+        <p class="text">Baca studi kasusnya pelan-pelan. Pilih tindakan guru yang paling tepat.</p>
+        <div class="note"><strong>Catatan:</strong> Halaman ini khusus pengerjaan test pengajar. Link spreadsheet hasil dan kunci jawaban tidak ditampilkan di halaman peserta.</div>
+      </div>
+      <div class="panel">
+        <h2>Data Pengajar</h2>
+        <ul class="steps">
+          <li><span>1</span><div>Isi <strong>Email Pengajar</strong>, <strong>Nama Lengkap</strong>, dan <strong>Cabang</strong>.</div></li>
+          <li><span>2</span><div>Untuk pengajar kelas online, isi kolom Cabang dengan <strong>ONLINE</strong>.</div></li>
+          <li><span>3</span><div>Klik <strong>Mulai Test</strong>, jawab semua soal, lalu submit satu kali.</div></li>
+        </ul>
+        <div class="form-grid">
+          <div class="field">
+            <label for="email">Email Pengajar</label>
+            <input id="email" name="email" type="email" placeholder="nama@email.com" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="teacherName">Nama Lengkap</label>
+            <input id="teacherName" name="teacherName" type="text" placeholder="Tulis nama lengkap" autocomplete="name" required>
+          </div>
+          <div class="field full">
+            <label for="branchName">Cabang</label>
+            <input id="branchName" name="branchName" type="text" placeholder="Contoh: Bekasi / ONLINE" required>
+            <p class="hint">Jika pengajar kelas online, isi dengan <strong>ONLINE</strong>.</p>
+          </div>
+        </div>
+        <div class="button-row">
+          <button class="button" type="button" id="startButton">Mulai Test</button>
+        </div>
+        <div class="status" id="statusBox" role="status"></div>
+      </div>
+    </section>
+    <section class="card hidden" id="quizCard">
+      <div class="quiz-head">
+        <span class="pill">Teacher Training</span>
+        <span class="pill">Post Test</span>
+        <span class="pill" id="participantPill">Pengajar</span>
+      </div>
+      <h1>Post Test Teacher Training</h1>
+      <p class="lead">Pilih satu jawaban yang paling tepat.</p>
+      <section class="question">
+    <h3>1. Guru offline sudah sampai di cabang sebelum kelas. Langkah yang paling tepat adalah ...</h3>
+    <label class="option">
+        <input type="radio" name="q1" value="A" required>
+        <strong>A.</strong>
+        <span>Langsung menunggu siswa tanpa menyiapkan apa pun.</span>
+      </label>
+<label class="option">
+        <input type="radio" name="q1" value="B" required>
+        <strong>B.</strong>
+        <span>Cek ruang, proyektor, learning kit, worksheet, deck, dan alur kegiatan hari itu.</span>
+      </label>
+<label class="option">
+        <input type="radio" name="q1" value="C" required>
+        <strong>C.</strong>
+        <span>Membuka post test dulu sebelum opening.</span>
+      </label>
+<label class="option">
+        <input type="radio" name="q1" value="D" required>
+        <strong>D.</strong>
+        <span>Mengubah seluruh alur tanpa membaca deck.</span>
+      </label>
+  </section>
+<section class="question">
+    <h3>2. Di kelas online, ada siswa yang belum print worksheet. Respons terbaik guru adalah ...</h3>
+    <label class="option">
+        <input type="radio" name="q2" value="A" required>
+        <strong>A.</strong>
+        <span>Menghentikan kelas sampai siswa print.</span>
+      </label>
+<label class="option">
+        <input type="radio" name="q2" value="B" required>
+        <strong>B.</strong>
+        <span>Meminta siswa menulis jawaban di buku dulu, lalu foto hasilnya setelah kelas.</span>
+      </label>
+<label class="option">
+        <input type="radio" name="q2" value="C" required>
+        <strong>C.</strong>
+        <span>Mengeluarkan siswa dari meeting.</span>
+      </label>
+<label class="option">
+        <input type="radio" name="q2" value="D" required>
+        <strong>D.</strong>
+        <span>Menghapus kegiatan worksheet dari rundown.</span>
+      </label>
+  </section>
+<section class="question">
+    <h3>3. Saat link GitHub deck tidak terbuka di tengah kelas, guru sebaiknya ...</h3>
+    <label class="option">
+        <input type="radio" name="q3" value="A" required>
+        <strong>A.</strong>
+        <span>Menghabiskan 20 menit untuk troubleshooting.</span>
+      </label>
+<label class="option">
+        <input type="radio" name="q3" value="B" required>
+        <strong>B.</strong>
+        <span>Membuka PDF backup atau refresh/coba browser lain sambil menjaga alur kelas.</span>
+      </label>
+<label class="option">
+        <input type="radio" name="q3" value="C" required>
+        <strong>C.</strong>
+        <span>Membatalkan sesi.</span>
+      </label>
+<label class="option">
+        <input type="radio" name="q3" value="D" required>
+        <strong>D.</strong>
+        <span>Meminta siswa mencari materi sendiri.</span>
+      </label>
+  </section>
+<section class="question">
+    <h3>4. Hasil test online seorang siswa belum muncul di dashboard. Urutan tindakan yang paling tepat adalah ...</h3>
+    <label class="option">
+        <input type="radio" name="q4" value="A" required>
+        <strong>A.</strong>
+        <span>Minta siswa submit berkali-kali tanpa cek.</span>
+      </label>
+<label class="option">
+        <input type="radio" name="q4" value="B" required>
+        <strong>B.</strong>
+        <span>Minta siswa cek tombol submit, guru klik Refresh Data, lalu catat nama siswa jika tetap gagal.</span>
+      </label>
+<label class="option">
+        <input type="radio" name="q4" value="C" required>
+        <strong>C.</strong>
+        <span>Langsung memberi nilai nol.</span>
+      </label>
+<label class="option">
+        <input type="radio" name="q4" value="D" required>
+        <strong>D.</strong>
+        <span>Menutup dashboard dan tidak melaporkan kendala.</span>
+      </label>
+  </section>
+<section class="question">
+    <h3>5. Pada kelas offline, hasil pre test dan post test siswa perlu ...</h3>
+    <label class="option">
+        <input type="radio" name="q5" value="A" required>
+        <strong>A.</strong>
+        <span>Dibuang setelah diperiksa.</span>
+      </label>
+<label class="option">
+        <input type="radio" name="q5" value="B" required>
+        <strong>B.</strong>
+        <span>Diperiksa lalu diinput via Google Form sesuai arahan.</span>
+      </label>
+<label class="option">
+        <input type="radio" name="q5" value="C" required>
+        <strong>C.</strong>
+        <span>Dikirim ke siswa tanpa nilai.</span>
+      </label>
+<label class="option">
+        <input type="radio" name="q5" value="D" required>
+        <strong>D.</strong>
+        <span>Diisi oleh siswa sendiri di dashboard online.</span>
+      </label>
+  </section>
+<section class="question">
+    <h3>6. Setelah kelas online selesai, berita acara harian minimal berisi ...</h3>
+    <label class="option">
+        <input type="radio" name="q6" value="A" required>
+        <strong>A.</strong>
+        <span>Evaluasi kelas dan foto kelas hari itu.</span>
+      </label>
+<label class="option">
+        <input type="radio" name="q6" value="B" required>
+        <strong>B.</strong>
+        <span>Daftar belanja pribadi guru.</span>
+      </label>
+<label class="option">
+        <input type="radio" name="q6" value="C" required>
+        <strong>C.</strong>
+        <span>Kunci jawaban yang dibagikan ke siswa.</span>
+      </label>
+<label class="option">
+        <input type="radio" name="q6" value="D" required>
+        <strong>D.</strong>
+        <span>Hanya jumlah slide yang dibuka.</span>
+      </label>
+  </section>
+<section class="question">
+    <h3>7. Jika siswa membuat ide produk yang terlalu sulit atau kurang aman, guru sebaiknya ...</h3>
+    <label class="option">
+        <input type="radio" name="q7" value="A" required>
+        <strong>A.</strong>
+        <span>Memaksanya tetap membuat ide itu.</span>
+      </label>
+<label class="option">
+        <input type="radio" name="q7" value="B" required>
+        <strong>B.</strong>
+        <span>Mengarahkan agar ide dibuat lebih sederhana, aman, dan sesuai bantuan orang tua.</span>
+      </label>
+<label class="option">
+        <input type="radio" name="q7" value="C" required>
+        <strong>C.</strong>
+        <span>Langsung menolak semua ide siswa.</span>
+      </label>
+<label class="option">
+        <input type="radio" name="q7" value="D" required>
+        <strong>D.</strong>
+        <span>Mengganti ide siswa tanpa berdiskusi.</span>
+      </label>
+  </section>
+<section class="question">
+    <h3>8. Ketika waktu sharing ide hampir habis, strategi terbaik adalah ...</h3>
+    <label class="option">
+        <input type="radio" name="q8" value="A" required>
+        <strong>A.</strong>
+        <span>Semua siswa wajib presentasi panjang walau kelas molor.</span>
+      </label>
+<label class="option">
+        <input type="radio" name="q8" value="B" required>
+        <strong>B.</strong>
+        <span>Pilih beberapa siswa sebagai sample, sisanya bisa share singkat lewat chat atau sesi berikutnya.</span>
+      </label>
+<label class="option">
+        <input type="radio" name="q8" value="C" required>
+        <strong>C.</strong>
+        <span>Lewati closing dan berita acara.</span>
+      </label>
+<label class="option">
+        <input type="radio" name="q8" value="D" required>
+        <strong>D.</strong>
+        <span>Tidak ada siswa yang boleh sharing.</span>
+      </label>
+  </section>
+<section class="question">
+    <h3>9. Data administrasi seperti nilai, evaluasi, komentar guru, dan foto kelas penting karena ...</h3>
+    <label class="option">
+        <input type="radio" name="q9" value="A" required>
+        <strong>A.</strong>
+        <span>Menjadi bahan student report dan komunikasi perkembangan ke parents.</span>
+      </label>
+<label class="option">
+        <input type="radio" name="q9" value="B" required>
+        <strong>B.</strong>
+        <span>Hanya untuk memperbanyak file.</span>
+      </label>
+<label class="option">
+        <input type="radio" name="q9" value="C" required>
+        <strong>C.</strong>
+        <span>Supaya siswa tidak perlu belajar matematika.</span>
+      </label>
+<label class="option">
+        <input type="radio" name="q9" value="D" required>
+        <strong>D.</strong>
+        <span>Supaya deck tidak perlu dibuka.</span>
+      </label>
+  </section>
+<section class="question">
+    <h3>10. Prinsip mengajar yang paling sesuai untuk program ini adalah ...</h3>
+    <label class="option">
+        <input type="radio" name="q10" value="A" required>
+        <strong>A.</strong>
+        <span>Anak senang dulu, lalu belajar lewat contoh, praktik, dan refleksi.</span>
+      </label>
+<label class="option">
+        <input type="radio" name="q10" value="B" required>
+        <strong>B.</strong>
+        <span>Guru berbicara terus tanpa aktivitas siswa.</span>
+      </label>
+<label class="option">
+        <input type="radio" name="q10" value="C" required>
+        <strong>C.</strong>
+        <span>Semua jawaban siswa harus langsung sempurna.</span>
+      </label>
+<label class="option">
+        <input type="radio" name="q10" value="D" required>
+        <strong>D.</strong>
+        <span>Worksheet dikerjakan tanpa arahan.</span>
+      </label>
+  </section>
+      <div class="button-row">
+        <button class="button secondary" type="submit" id="submitButton">Submit Jawaban</button>
+      </div>
+      <div class="status" id="quizStatusBox" role="status"></div>
+    </section>
+  </form>
+</main>
+<script>"use strict";
+const TEST_KEY = "post";
+const RESULT_CONFIG = {"supabaseUrl":"https://suifgsvtcbrawzdhyuhk.supabase.co","storageKey":"sb_publishable_9BdHYLcpIS0B6Z92WxXf_Q_WpWBswLB","resultPrefix":"api/math-champs-fnb-teacher-training-results-20260617"};
+const TESTS = {"post":{"testId":"teacher-training-post","fileName":"post-test-teacher-training.html","title":"Post Test Teacher Training","eyebrow":"10 soal pilihan ganda","kindId":"post","kind":"Post Test","description":"Cek kesiapan pengajar setelah mengikuti sesi training utama.","introNote":"Baca studi kasusnya pelan-pelan. Pilih tindakan guru yang paling tepat.","questions":[{"question":"Guru offline sudah sampai di cabang sebelum kelas. Langkah yang paling tepat adalah ...","choices":["Langsung menunggu siswa tanpa menyiapkan apa pun.","Cek ruang, proyektor, learning kit, worksheet, deck, dan alur kegiatan hari itu.","Membuka post test dulu sebelum opening.","Mengubah seluruh alur tanpa membaca deck."],"answer":"B"},{"question":"Di kelas online, ada siswa yang belum print worksheet. Respons terbaik guru adalah ...","choices":["Menghentikan kelas sampai siswa print.","Meminta siswa menulis jawaban di buku dulu, lalu foto hasilnya setelah kelas.","Mengeluarkan siswa dari meeting.","Menghapus kegiatan worksheet dari rundown."],"answer":"B"},{"question":"Saat link GitHub deck tidak terbuka di tengah kelas, guru sebaiknya ...","choices":["Menghabiskan 20 menit untuk troubleshooting.","Membuka PDF backup atau refresh/coba browser lain sambil menjaga alur kelas.","Membatalkan sesi.","Meminta siswa mencari materi sendiri."],"answer":"B"},{"question":"Hasil test online seorang siswa belum muncul di dashboard. Urutan tindakan yang paling tepat adalah ...","choices":["Minta siswa submit berkali-kali tanpa cek.","Minta siswa cek tombol submit, guru klik Refresh Data, lalu catat nama siswa jika tetap gagal.","Langsung memberi nilai nol.","Menutup dashboard dan tidak melaporkan kendala."],"answer":"B"},{"question":"Pada kelas offline, hasil pre test dan post test siswa perlu ...","choices":["Dibuang setelah diperiksa.","Diperiksa lalu diinput via Google Form sesuai arahan.","Dikirim ke siswa tanpa nilai.","Diisi oleh siswa sendiri di dashboard online."],"answer":"B"},{"question":"Setelah kelas online selesai, berita acara harian minimal berisi ...","choices":["Evaluasi kelas dan foto kelas hari itu.","Daftar belanja pribadi guru.","Kunci jawaban yang dibagikan ke siswa.","Hanya jumlah slide yang dibuka."],"answer":"A"},{"question":"Jika siswa membuat ide produk yang terlalu sulit atau kurang aman, guru sebaiknya ...","choices":["Memaksanya tetap membuat ide itu.","Mengarahkan agar ide dibuat lebih sederhana, aman, dan sesuai bantuan orang tua.","Langsung menolak semua ide siswa.","Mengganti ide siswa tanpa berdiskusi."],"answer":"B"},{"question":"Ketika waktu sharing ide hampir habis, strategi terbaik adalah ...","choices":["Semua siswa wajib presentasi panjang walau kelas molor.","Pilih beberapa siswa sebagai sample, sisanya bisa share singkat lewat chat atau sesi berikutnya.","Lewati closing dan berita acara.","Tidak ada siswa yang boleh sharing."],"answer":"B"},{"question":"Data administrasi seperti nilai, evaluasi, komentar guru, dan foto kelas penting karena ...","choices":["Menjadi bahan student report dan komunikasi perkembangan ke parents.","Hanya untuk memperbanyak file.","Supaya siswa tidak perlu belajar matematika.","Supaya deck tidak perlu dibuka."],"answer":"A"},{"question":"Prinsip mengajar yang paling sesuai untuk program ini adalah ...","choices":["Anak senang dulu, lalu belajar lewat contoh, praktik, dan refleksi.","Guru berbicara terus tanpa aktivitas siswa.","Semua jawaban siswa harus langsung sempurna.","Worksheet dikerjakan tanpa arahan."],"answer":"A"}]}};
+const TEST = TESTS[TEST_KEY];
+
+function el(id) { return document.getElementById(id); }
+function clean(value) { return String(value || "").replace(/[\n\r]+/g, " ").trim(); }
+function setStatus(target, type, message) {
+  const box = el(target);
+  box.className = "status show " + type;
+  box.textContent = message;
+}
+function participantKey(email) {
+  return TEST.testId + "|" + String(email || "").trim().toLowerCase();
+}
+function localSubmitted(email) {
+  return localStorage.getItem("mathchamps-teacher-training-submitted:" + participantKey(email)) === "1";
+}
+function markSubmitted(email) {
+  localStorage.setItem("mathchamps-teacher-training-submitted:" + participantKey(email), "1");
+}
+function resultPrefix() {
+  return RESULT_CONFIG.resultPrefix + "/" + TEST.testId;
+}
+function storageReady() {
+  return Boolean(RESULT_CONFIG.supabaseUrl && RESULT_CONFIG.storageKey && RESULT_CONFIG.resultPrefix);
+}
+function formData() {
+  return {
+    email: clean(el("email").value).toLowerCase(),
+    name: clean(el("teacherName").value),
+    branch: clean(el("branchName").value)
+  };
+}
+function collectAnswers() {
+  const answers = {};
+  TEST.questions.forEach((_, index) => {
+    const name = "q" + (index + 1);
+    const checked = document.querySelector('input[name="' + name + '"]:checked');
+    answers[name] = checked ? checked.value : "";
+  });
+  return answers;
+}
+function countCorrect(answers) {
+  return TEST.questions.reduce((total, question, index) => total + (answers["q" + (index + 1)] === question.answer ? 1 : 0), 0);
+}
+function scoreFrom(correct) {
+  return Math.round((correct / TEST.questions.length) * 100);
+}
+async function listRemoteResults() {
+  if (!storageReady()) return [];
+  const response = await fetch(RESULT_CONFIG.supabaseUrl + "/storage/v1/object/list/html-pages", {
+    method: "POST",
+    headers: {
+      apikey: RESULT_CONFIG.storageKey,
+      Authorization: "Bearer " + RESULT_CONFIG.storageKey,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      prefix: resultPrefix(),
+      limit: 1000,
+      offset: 0,
+      sortBy: { column: "created_at", order: "desc" }
+    })
+  });
+  if (!response.ok) throw new Error(await response.text());
+  const files = await response.json();
+  const rows = [];
+  for (const file of files.filter((item) => item.name && item.name.endsWith(".json"))) {
+    const url = RESULT_CONFIG.supabaseUrl + "/storage/v1/object/public/html-pages/" + resultPrefix() + "/" + file.name + "?v=" + Date.now();
+    const itemResponse = await fetch(url);
+    if (itemResponse.ok) rows.push(await itemResponse.json());
+  }
+  return rows;
+}
+async function remoteAlreadySubmitted(email) {
+  const rows = await listRemoteResults();
+  const normalizedEmail = String(email).trim().toLowerCase();
+  const key = participantKey(email);
+  return rows.some((row) => {
+    const rowEmail = String(row.email || row.participant_email || "").trim().toLowerCase();
+    const rowTestId = String(row.testId || row.test_id || "");
+    return row.participant_key === key || (rowEmail === normalizedEmail && rowTestId === TEST.testId);
+  });
+}
+async function savePayload(payload) {
+  if (!storageReady()) throw new Error("Konfigurasi penyimpanan hasil belum lengkap.");
+  const fileName = Date.now() + "-" + Math.random().toString(36).slice(2, 10) + ".json";
+  const objectPath = resultPrefix() + "/" + fileName;
+  const response = await fetch(RESULT_CONFIG.supabaseUrl + "/storage/v1/object/html-pages/" + objectPath, {
+    method: "POST",
+    headers: {
+      apikey: RESULT_CONFIG.storageKey,
+      Authorization: "Bearer " + RESULT_CONFIG.storageKey,
+      "Content-Type": "application/json",
+      "x-upsert": "false"
+    },
+    body: JSON.stringify(payload)
+  });
+  if (!response.ok) throw new Error(await response.text());
+  return fileName;
+}
+
+el("startButton").addEventListener("click", () => {
+  const data = formData();
+  if (!data.email || !data.email.includes("@") || !data.name || !data.branch) {
+    setStatus("statusBox", "warn", "Isi Email Pengajar, Nama Lengkap, dan Cabang dulu ya. Untuk kelas online, isi Cabang dengan ONLINE.");
+    return;
+  }
+  if (localSubmitted(data.email)) {
+    setStatus("statusBox", "warn", "Email ini sudah pernah submit test ini di device ini. Jika ada kesalahan, hubungi admin/trainer.");
+    return;
+  }
+  el("participantPill").textContent = data.name + " | " + data.branch;
+  el("introCard").classList.add("hidden");
+  el("quizCard").classList.remove("hidden");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+el("testForm").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const data = formData();
+  if (!data.email || !data.email.includes("@") || !data.name || !data.branch) {
+    setStatus("quizStatusBox", "warn", "Data pengajar belum lengkap.");
+    return;
+  }
+  const answers = collectAnswers();
+  if (Object.values(answers).some((answer) => !answer)) {
+    setStatus("quizStatusBox", "warn", "Masih ada soal yang belum dijawab.");
+    return;
+  }
+  const submitButton = el("submitButton");
+  submitButton.disabled = true;
+  setStatus("quizStatusBox", "warn", "Menyimpan jawaban ke dashboard hasil...");
+  try {
+    if (localSubmitted(data.email) || await remoteAlreadySubmitted(data.email)) {
+      setStatus("quizStatusBox", "warn", "Email ini sudah pernah submit test ini. Jika ada kesalahan, hubungi admin/trainer.");
+      submitButton.disabled = false;
+      return;
+    }
+  } catch (error) {
+    console.warn("Remote duplicate check skipped:", error);
+  }
+  try {
+    const now = new Date();
+    const correct = countCorrect(answers);
+    const score = scoreFrom(correct);
+    const payload = {
+      submitted_at: now.toISOString(),
+      submittedAt: now.toISOString(),
+      submitted_date: now.toLocaleDateString("id-ID", { timeZone: "Asia/Jakarta", day: "2-digit", month: "short", year: "numeric" }),
+      submitted_time: now.toLocaleTimeString("id-ID", { timeZone: "Asia/Jakarta", hour: "2-digit", minute: "2-digit", second: "2-digit" }),
+      program: "Holiday Program Mathpreneur F&B - Teacher Training",
+      testId: TEST.testId,
+      test_id: TEST.testId,
+      kind: TEST.kindId,
+      kind_label: TEST.kind,
+      email: data.email,
+      participant_email: data.email,
+      name: data.name,
+      teacherName: data.name,
+      branch: data.branch,
+      branchName: data.branch,
+      classMode: data.branch.toUpperCase() === "ONLINE" ? "Online" : "Offline",
+      correct,
+      totalQuestions: TEST.questions.length,
+      score,
+      participant_key: participantKey(data.email),
+      answers,
+      answer_labels: TEST.questions.map((_, index) => answers["q" + (index + 1)]),
+      questions: TEST.questions.map((question) => question.question)
+    };
+    await savePayload(payload);
+    markSubmitted(data.email);
+    setStatus("quizStatusBox", "ok", "Jawaban tersimpan. Skor kamu: " + score + ". Trainer bisa melihat hasilnya di dashboard.");
+  } catch (error) {
+    console.error(error);
+    setStatus("quizStatusBox", "err", "Jawaban belum berhasil tersimpan. Cek koneksi internet, lalu klik Submit lagi.");
+    submitButton.disabled = false;
+  }
+});</script>
+</body>
+</html>
