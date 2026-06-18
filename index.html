@@ -368,6 +368,7 @@ td strong { color: var(--teal); }
         <p class="lead">Cek kesiapan pengajar setelah mengikuti sesi training utama.</p>
         <p class="text">Baca studi kasusnya pelan-pelan. Pilih tindakan guru yang paling tepat.</p>
         <div class="note"><strong>Catatan:</strong> Halaman ini khusus pengerjaan test pengajar. Link spreadsheet hasil dan kunci jawaban tidak ditampilkan di halaman peserta.</div>
+        <div class="note"><strong>Batas akses:</strong> Post Test dapat dikerjakan sampai 18 Juni 2026, pukul 13.30 WIB.</div>
       </div>
       <div class="panel">
         <h2>Data Pengajar</h2>
@@ -645,6 +646,7 @@ td strong { color: var(--teal); }
 <script>"use strict";
 const TEST_KEY = "post";
 const RESULT_CONFIG = {"supabaseUrl":"https://suifgsvtcbrawzdhyuhk.supabase.co","storageKey":"sb_publishable_9BdHYLcpIS0B6Z92WxXf_Q_WpWBswLB","resultPrefix":"api/math-champs-fnb-teacher-training-results-20260617"};
+const ACCESS_LIMIT = {"closesAt":"2026-06-18T13:30:00+07:00","label":"18 Juni 2026, pukul 13.30 WIB"};
 const TESTS = {"post":{"testId":"teacher-training-post","fileName":"post-test-teacher-training.html","title":"Post Test Teacher Training","eyebrow":"10 soal pilihan ganda","kindId":"post","kind":"Post Test","description":"Cek kesiapan pengajar setelah mengikuti sesi training utama.","introNote":"Baca studi kasusnya pelan-pelan. Pilih tindakan guru yang paling tepat.","questions":[{"question":"Guru offline sudah sampai di cabang sebelum kelas. Langkah yang paling tepat adalah ...","choices":["Langsung menunggu siswa tanpa menyiapkan apa pun.","Cek ruang, proyektor, learning kit, worksheet, deck, dan alur kegiatan hari itu.","Membuka post test dulu sebelum opening.","Mengubah seluruh alur tanpa membaca deck."],"answer":"B"},{"question":"Di kelas online, ada siswa yang belum print worksheet. Respons terbaik guru adalah ...","choices":["Menghentikan kelas sampai siswa print.","Meminta siswa menulis jawaban di buku dulu, lalu foto hasilnya setelah kelas.","Mengeluarkan siswa dari meeting.","Menghapus kegiatan worksheet dari rundown."],"answer":"B"},{"question":"Saat link GitHub deck tidak terbuka di tengah kelas, guru sebaiknya ...","choices":["Menghabiskan 20 menit untuk troubleshooting.","Membuka PDF backup atau refresh/coba browser lain sambil menjaga alur kelas.","Membatalkan sesi.","Meminta siswa mencari materi sendiri."],"answer":"B"},{"question":"Hasil test online seorang siswa belum muncul di dashboard. Urutan tindakan yang paling tepat adalah ...","choices":["Minta siswa submit berkali-kali tanpa cek.","Minta siswa cek tombol submit, guru klik Refresh Data, lalu catat nama siswa jika tetap gagal.","Langsung memberi nilai nol.","Menutup dashboard dan tidak melaporkan kendala."],"answer":"B"},{"question":"Pada kelas offline, hasil pre test dan post test siswa perlu ...","choices":["Dibuang setelah diperiksa.","Diperiksa lalu diinput via Google Form sesuai arahan.","Dikirim ke siswa tanpa nilai.","Diisi oleh siswa sendiri di dashboard online."],"answer":"B"},{"question":"Setelah kelas online selesai, berita acara harian minimal berisi ...","choices":["Evaluasi kelas dan foto kelas hari itu.","Daftar belanja pribadi guru.","Kunci jawaban yang dibagikan ke siswa.","Hanya jumlah slide yang dibuka."],"answer":"A"},{"question":"Jika siswa membuat ide produk yang terlalu sulit atau kurang aman, guru sebaiknya ...","choices":["Memaksanya tetap membuat ide itu.","Mengarahkan agar ide dibuat lebih sederhana, aman, dan sesuai bantuan orang tua.","Langsung menolak semua ide siswa.","Mengganti ide siswa tanpa berdiskusi."],"answer":"B"},{"question":"Ketika waktu sharing ide hampir habis, strategi terbaik adalah ...","choices":["Semua siswa wajib presentasi panjang walau kelas molor.","Pilih beberapa siswa sebagai sample, sisanya bisa share singkat lewat chat atau sesi berikutnya.","Lewati closing dan berita acara.","Tidak ada siswa yang boleh sharing."],"answer":"B"},{"question":"Data administrasi seperti nilai, evaluasi, komentar guru, dan foto kelas penting karena ...","choices":["Menjadi bahan student report dan komunikasi perkembangan ke parents.","Hanya untuk memperbanyak file.","Supaya siswa tidak perlu belajar matematika.","Supaya deck tidak perlu dibuka."],"answer":"A"},{"question":"Prinsip mengajar yang paling sesuai untuk program ini adalah ...","choices":["Anak senang dulu, lalu belajar lewat contoh, praktik, dan refleksi.","Guru berbicara terus tanpa aktivitas siswa.","Semua jawaban siswa harus langsung sempurna.","Worksheet dikerjakan tanpa arahan."],"answer":"A"}]}};
 const TEST = TESTS[TEST_KEY];
 
@@ -669,6 +671,22 @@ function resultPrefix() {
 }
 function storageReady() {
   return Boolean(RESULT_CONFIG.supabaseUrl && RESULT_CONFIG.storageKey && RESULT_CONFIG.resultPrefix);
+}
+function isClosed() {
+  return ACCESS_LIMIT && Date.now() > new Date(ACCESS_LIMIT.closesAt).getTime();
+}
+function closedMessage() {
+  return TEST.kind + " sudah ditutup. Batas akses: " + ACCESS_LIMIT.label + ". Jika ada kebutuhan khusus, hubungi admin/trainer.";
+}
+function applyAccessLimit() {
+  if (!ACCESS_LIMIT) return false;
+  if (isClosed()) {
+    el("startButton").disabled = true;
+    setStatus("statusBox", "err", closedMessage());
+    return true;
+  }
+  setStatus("statusBox", "warn", "Batas akses " + TEST.kind + ": " + ACCESS_LIMIT.label + ".");
+  return false;
 }
 function formData() {
   return {
@@ -747,6 +765,7 @@ async function savePayload(payload) {
 }
 
 el("startButton").addEventListener("click", () => {
+  if (applyAccessLimit()) return;
   const data = formData();
   if (!data.email || !data.email.includes("@") || !data.name || !data.branch) {
     setStatus("statusBox", "warn", "Isi Email Pengajar, Nama Lengkap, dan Cabang dulu ya. Untuk kelas online, isi Cabang dengan ONLINE.");
@@ -764,6 +783,10 @@ el("startButton").addEventListener("click", () => {
 
 el("testForm").addEventListener("submit", async (event) => {
   event.preventDefault();
+  if (ACCESS_LIMIT && isClosed()) {
+    setStatus("quizStatusBox", "err", closedMessage());
+    return;
+  }
   const data = formData();
   if (!data.email || !data.email.includes("@") || !data.name || !data.branch) {
     setStatus("quizStatusBox", "warn", "Data pengajar belum lengkap.");
@@ -823,6 +846,7 @@ el("testForm").addEventListener("submit", async (event) => {
     setStatus("quizStatusBox", "err", "Jawaban belum berhasil tersimpan. Cek koneksi internet, lalu klik Submit lagi.");
     submitButton.disabled = false;
   }
-});</script>
+});
+applyAccessLimit();</script>
 </body>
 </html>
